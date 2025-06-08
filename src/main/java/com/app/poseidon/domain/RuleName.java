@@ -3,8 +3,8 @@ package com.app.poseidon.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 @Entity
