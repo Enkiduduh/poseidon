@@ -41,6 +41,7 @@ public class RuleNameController {
         if (result.hasErrors()) {
             List<RuleName> ruleNameList = ruleNameService.getAllRuleName();
             model.addAttribute("ruleNames", ruleNameList);
+            return "ruleName/add";
         }
         ruleNameService.save(ruleName);
         List<RuleName> ruleNameList = ruleNameService.getAllRuleName();
