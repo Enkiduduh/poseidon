@@ -1,4 +1,3 @@
-
 CREATE TABLE BidList (
   BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) NOT NULL,
@@ -24,7 +23,7 @@ CREATE TABLE BidList (
   side VARCHAR(125),
 
   PRIMARY KEY (BidListId)
-)
+);
 
 CREATE TABLE Trade (
   TradeId tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -50,7 +49,7 @@ CREATE TABLE Trade (
   side VARCHAR(125),
 
   PRIMARY KEY (TradeId)
-)
+);
 
 CREATE TABLE CurvePoint (
   Id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -61,7 +60,7 @@ CREATE TABLE CurvePoint (
   creationDate TIMESTAMP ,
 
   PRIMARY KEY (Id)
-)
+);
 
 CREATE TABLE Rating (
   Id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -71,7 +70,7 @@ CREATE TABLE Rating (
   orderNumber tinyint,
 
   PRIMARY KEY (Id)
-)
+);
 
 CREATE TABLE RuleName (
   Id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -83,7 +82,7 @@ CREATE TABLE RuleName (
   sqlPart VARCHAR(125),
 
   PRIMARY KEY (Id)
-)
+);
 
 CREATE TABLE Users (
   Id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -93,4 +92,4 @@ CREATE TABLE Users (
   role VARCHAR(125),
 
   PRIMARY KEY (Id)
-)
+);

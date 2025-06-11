@@ -25,7 +25,7 @@
 //
 //		// Save
 //		bid = bidListRepository.save(bid);
-//		Assert.assertNotNull(bid.getBidListId());
+//		Assert.assertNotNull(bid.getId());
 //		Assert.assertEquals(bid.getBidQuantity(), 10d, 10d);
 //
 //		// Update
@@ -35,7 +35,7 @@
 //
 //		// Find
 //		List<BidList> listResult = bidListRepository.findAll();
-//		Assert.assertTrue(listResult.size() > 0);
+//		Assert.assertFalse(listResult.isEmpty());
 //
 //		// Delete
 //		Integer id = bid.getBidListId();

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "Id")
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
