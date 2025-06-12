@@ -65,7 +65,7 @@ public class RatingController {
             model.addAttribute("rating", rating);
             return "rating/update";
         }
-        ratingService.save(rating);
+        ratingService.update(id, rating);
         return "redirect:/rating/list";
     }
 

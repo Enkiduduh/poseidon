@@ -87,7 +87,7 @@ public class BidList {
     private String side;
 
     @PrePersist
-    protected void onCreate() {
+    public void onCreate() {
         this.bidListDate = LocalDateTime.now();
         this.creationDate = LocalDateTime.now();
         this.revisionDate = LocalDateTime.now();
