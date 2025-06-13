@@ -1,0 +1,28 @@
+html {
+    width:100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.form-login {
+    padding: 50px 30px;
+    border: 1px solid black;
+}
+
+.form-input-container {
+}
+
+.form-label {
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    width:300px;
+}
+
+
+
