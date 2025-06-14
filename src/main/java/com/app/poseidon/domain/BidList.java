@@ -33,66 +33,68 @@ public class BidList {
     @Column(nullable = false)
     private String type;
 
-    @Digits(integer = 6, fraction = 4, message = "La quantité d'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    @Digits(integer = 6, fraction = 2, message = "La quantité d'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
     @Column(name="bid_quantity", nullable = false)
     private BigDecimal bidQuantity;
 
-    @Digits(integer = 6, fraction = 4, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(name="ask_quantity", nullable = false)
-    private BigDecimal askQuantity;
+    // Champs optionnels avec valeurs par défaut
+    @Digits(integer = 6, fraction = 2, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    @Column(name="ask_quantity")
+    private BigDecimal askQuantity = BigDecimal.ZERO;
 
-    @Digits(integer = 6, fraction = 4, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
-    private BigDecimal bid;
+    @Digits(integer = 6, fraction = 2, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    private BigDecimal bid = BigDecimal.ZERO;
 
-    @Digits(integer = 6, fraction = 4, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
-    private BigDecimal  ask;
+    @Digits(integer = 6, fraction = 2, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    private BigDecimal ask = BigDecimal.ZERO;
 
-    private String benchmark;
+    private String benchmark = "";
 
-    @Column(name = "bid_list_date", nullable = false, updatable = false)
-    private LocalDateTime bidListDate;
+    @Column(name = "bid_list_date", updatable = false)
+    private LocalDateTime bidListDate = LocalDateTime.now();
 
-    @NotBlank(message = "Commentary is mandatory.")
-    private String commentary;
-
-    private String security;
+    private String commentary = "";
+    private String security = "";
 
     @Size(max = 10, message = "Status must be under 10 characters.")
-    private String status;
-    private String trader;
-    private String book;
+    private String status = "";
+    private String trader = "";
+    private String book = "";
 
-    @NotBlank(message = "Name is mandatory.")
     @Column(name = "creation_name")
-    private String creationName;
+    private String creationName = "";
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private LocalDateTime creationDate;
+    @Column(name = "creation_date", updatable = false)
+    private LocalDateTime creationDate = LocalDateTime.now();
 
-    @NotBlank(message = "Revision name is mandatory.")
     @Column(name = "revision_name")
-    private String revisionName;
+    private String revisionName = "";
 
-    @Column(name = "revision_date", nullable = false, updatable = false)
-    private LocalDateTime revisionDate;
+    @Column(name = "revision_date", updatable = false)
+    private LocalDateTime revisionDate = LocalDateTime.now();
 
-    @NotBlank(message = "Deal name is mandatory.")
-    @Column(name = "deal_name", nullable = false)
-    private String dealName;
+    @Column(name = "deal_name")
+    private String dealName = "";
 
-    @Column(name = "deal_type", nullable = false)
-    private String dealType;
+    @Column(name = "deal_type")
+    private String dealType = "";
 
     @Column(name = "source_list_id")
-    private String sourceListId;
-    private String side;
+    private String sourceListId = "";
+    private String side = "";
 
     @PrePersist
     public void onCreate() {
         this.bidListDate = LocalDateTime.now();
         this.creationDate = LocalDateTime.now();
         this.revisionDate = LocalDateTime.now();
+    }
+    // Constructeur protégé
+    protected BidList() {}
+
+    public BidList(String account, String type, BigDecimal bidQuantity) {
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
     }
 }

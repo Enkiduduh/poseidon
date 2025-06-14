@@ -4,6 +4,7 @@ import com.app.poseidon.domain.BidList;
 import com.app.poseidon.repositories.BidListRepository;
 import com.app.poseidon.services.BidListService;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
-
+@Slf4j
 @Controller
 public class BidListController {
     // TODO: Inject Bid service
@@ -40,14 +41,23 @@ public class BidListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bid list
+        log.info("Attempting to save bid: {}", bid);
+
         if (result.hasErrors()) {
+            log.error("Validation errors: {}", result.getAllErrors());
+            System.out.println("Error in BidList...");
             model.addAttribute("bidList", bid);
             return "bidList/add";
         }
-        bidListService.save(bid);
-        List<BidList> bidLists = bidListService.getAllBids();
-        model.addAttribute("bidLists", bidLists);
-        return "bidList/list";
+        try {
+            bidListService.save(bid);
+            return "redirect:/bidList/list";
+        } catch (Exception e) {
+            log.error("Save failed", e);
+            model.addAttribute("errorMessage", "Save error: " + e.getMessage());
+            model.addAttribute("bidList", bid);
+            return "bidList/add";
+        }
     }
 
     @GetMapping("/bidList/update/{id}")

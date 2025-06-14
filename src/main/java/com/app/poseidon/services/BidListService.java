@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +31,6 @@ public class BidListService {
 
     @Transactional
     public void save(@Valid BidList bid) {
-        if (bid.getCreationDate() == null) {
-            bid.setCreationDate(LocalDateTime.now());
-        }
         bidListRepository.save(bid);
     }
 
