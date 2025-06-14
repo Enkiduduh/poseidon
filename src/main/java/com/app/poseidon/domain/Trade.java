@@ -72,7 +72,7 @@ public class Trade {
     private LocalDateTime creationDate;
 
     @NotBlank(message = "Revision name is mandatory.")
-    @Column(name = "revision_date")
+    @Column(name = "revision_name")
     private String revisionName;
 
     @Column(name = "revision_date", nullable = false, updatable = false)
