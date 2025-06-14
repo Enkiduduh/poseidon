@@ -20,11 +20,11 @@ public class CurvePoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CurveId")
+    @Column(name = "curve_id")
     private Integer id;
 
     @NotNull
-    @Column(nullable = false, updatable = false)
+    @Column(name = "as_of_date", nullable = false, updatable = false)
     private LocalDateTime asOfDate;
 
     @Digits(integer = 6, fraction = 4)
@@ -36,7 +36,7 @@ public class CurvePoint {
     private BigDecimal value;
 
     @NotNull
-    @Column(nullable = false, updatable = false)
+    @Column(name = "creation_date", nullable = false, updatable = false)
     private LocalDateTime creationDate;
 
     @PrePersist

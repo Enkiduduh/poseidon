@@ -21,18 +21,18 @@ public class Rating {
     private Integer id;
 
     @NotBlank(message = "Rating is mandatory.")
-    @Column(nullable = false)
+    @Column(name = "moddys_rating", nullable = false)
     private String moodysRating;
 
     @NotBlank(message = "Rating is mandatory.")
-    @Column(nullable = false)
+    @Column(name = "sandprating", nullable = false)
     private String sandPRating;
 
     @NotBlank(message = "Rating is mandatory.")
-    @Column(nullable = false)
+    @Column(name = "fitch_rating", nullable = false)
     private String fitchRating;
 
     @Digits(integer = 4, fraction = 0)
-    @Column(nullable = false)
+    @Column(name = "order_number", nullable = false)
     private Integer orderNumber;
 }

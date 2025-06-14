@@ -41,14 +41,13 @@ public class BidListController {
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bid list
         if (result.hasErrors()) {
-            List<BidList> bidLists = bidListService.getAllBids();
-            model.addAttribute("bidLists", bidLists);
+            model.addAttribute("bidList", bid);
             return "bidList/add";
         }
         bidListService.save(bid);
         List<BidList> bidLists = bidListService.getAllBids();
         model.addAttribute("bidLists", bidLists);
-        return "bidList/add";
+        return "bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")

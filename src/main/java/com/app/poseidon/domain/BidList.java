@@ -20,7 +20,7 @@ public class BidList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BidListId")
+    @Column(name = "bid_list_id")
     private Integer id;
 
     @Size(max = 30, message = "Account must be under 30 characters.")
@@ -34,11 +34,11 @@ public class BidList {
     private String type;
 
     @Digits(integer = 6, fraction = 4, message = "La quantité d'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
+    @Column(name="bid_quantity", nullable = false)
     private BigDecimal bidQuantity;
 
     @Digits(integer = 6, fraction = 4, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
+    @Column(name="ask_quantity", nullable = false)
     private BigDecimal askQuantity;
 
     @Digits(integer = 6, fraction = 4, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
@@ -51,7 +51,7 @@ public class BidList {
 
     private String benchmark;
 
-    @Column(name = "bidListDate", nullable = false, updatable = false)
+    @Column(name = "bid_list_date", nullable = false, updatable = false)
     private LocalDateTime bidListDate;
 
     @NotBlank(message = "Commentary is mandatory.")
@@ -65,24 +65,27 @@ public class BidList {
     private String book;
 
     @NotBlank(message = "Name is mandatory.")
+    @Column(name = "creation_name")
     private String creationName;
 
-    @Column(name = "creationDate", nullable = false, updatable = false)
+    @Column(name = "creation_date", nullable = false, updatable = false)
     private LocalDateTime creationDate;
 
     @NotBlank(message = "Revision name is mandatory.")
+    @Column(name = "revision_name")
     private String revisionName;
 
-    @Column(name = "revisionDate", nullable = false, updatable = false)
+    @Column(name = "revision_date", nullable = false, updatable = false)
     private LocalDateTime revisionDate;
 
     @NotBlank(message = "Deal name is mandatory.")
-    @Column(nullable = false)
+    @Column(name = "deal_name", nullable = false)
     private String dealName;
 
-    @Column(nullable = false)
+    @Column(name = "deal_type", nullable = false)
     private String dealType;
 
+    @Column(name = "source_list_id")
     private String sourceListId;
     private String side;
 

@@ -17,7 +17,7 @@ public class Trade {
     // TODO: Map columns in data table TRADE with corresponding java fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TradeId")
+    @Column(name = "trade_id")
     private Integer id;
 
     @Size(max = 30, message = "Account must be under 30 characters.")
@@ -31,27 +31,27 @@ public class Trade {
     private String type;
 
     @Digits(integer = 6, fraction = 4, message = "La quantité d'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
+    @Column(name = "buy_quantity", nullable = false)
     private BigDecimal buyQuantity;
 
     @Digits(integer = 6, fraction = 4, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
+    @Column(name = "sell_quantity", nullable = false)
     private BigDecimal sellQuantity;
 
     @Digits(integer = 6, fraction = 4, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
+    @Column(name ="buy_price", nullable = false)
     private BigDecimal buyPrice;
 
     @Digits(integer = 6, fraction = 4, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(nullable = false)
+    @Column(name ="sell_price", nullable = false)
     private BigDecimal  sellPrice;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "trade_date", nullable = false, updatable = false)
     private LocalDateTime tradeDate;
 
     private String benchmark;
 
-    @Column(name = "bidListDate", nullable = false, updatable = false)
+    @Column(name = "bid_list_date", nullable = false, updatable = false)
     private LocalDateTime bidListDate;
 
     @NotBlank(message = "Commentary is mandatory.")
@@ -65,25 +65,29 @@ public class Trade {
     private String book;
 
     @NotBlank(message = "Name is mandatory.")
+    @Column(name = "creation_name")
     private String creationName;
 
-    @Column(name = "creationDate", nullable = false, updatable = false)
+    @Column(name = "creation_date", nullable = false, updatable = false)
     private LocalDateTime creationDate;
 
     @NotBlank(message = "Revision name is mandatory.")
+    @Column(name = "revision_date")
     private String revisionName;
 
-    @Column(name = "revisionDate", nullable = false, updatable = false)
+    @Column(name = "revision_date", nullable = false, updatable = false)
     private LocalDateTime revisionDate;
 
     @NotBlank(message = "Deal name is mandatory.")
-    @Column(nullable = false)
+    @Column(name = "deal_name", nullable = false)
     private String dealName;
 
-    @Column(nullable = false)
+    @Column(name = "deal_type", nullable = false)
     private String dealType;
 
+    @Column(name = "source_list_id", nullable = false)
     private String sourceListId;
+
     private String side;
 
     @PrePersist
