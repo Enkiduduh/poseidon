@@ -21,7 +21,7 @@ public class Rating {
     private Integer id;
 
     @NotBlank(message = "Rating is mandatory.")
-    @Column(name = "moddys_rating", nullable = false)
+    @Column(name = "moodys_rating", nullable = false)
     private String moodysRating;
 
     @NotBlank(message = "Rating is mandatory.")

@@ -23,21 +23,19 @@ public class CurvePoint {
     @Column(name = "curve_id")
     private Integer id;
 
-    @NotNull
-    @Column(name = "as_of_date", nullable = false, updatable = false)
-    private LocalDateTime asOfDate;
+    @Column(name = "as_of_date", updatable = false)
+    private LocalDateTime asOfDate = LocalDateTime.now();
 
-    @Digits(integer = 6, fraction = 4)
+    @Digits(integer = 6, fraction = 2)
     @Column(nullable = false)
     private BigDecimal term;
 
-    @Digits(integer = 6, fraction = 4)
+    @Digits(integer = 6, fraction = 2)
     @Column(nullable = false)
     private BigDecimal value;
 
-    @NotNull
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private LocalDateTime creationDate;
+    @Column(name = "creation_date", updatable = false)
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     @PrePersist
     protected void onCreate() {

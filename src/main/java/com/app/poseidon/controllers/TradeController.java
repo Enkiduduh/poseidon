@@ -2,6 +2,7 @@ package com.app.poseidon.controllers;
 
 import com.app.poseidon.domain.Trade;
 import com.app.poseidon.services.TradeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 public class TradeController {
     // TODO: Inject Trade service
@@ -38,13 +40,19 @@ public class TradeController {
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Trade list
         if (result.hasErrors()) {
+            log.error("Validation errors: {}", result.getAllErrors());
             model.addAttribute("trade", trade);
             return "trade/add";
         }
-        tradeService.save(trade);
-        List<Trade> trades = tradeService.getAllTrades();
-        model.addAttribute("trades", trades);
-        return "trade/add";
+        try {
+            tradeService.save(trade);
+            return "redirect:/trade/list";
+        } catch (Exception e) {
+            log.error("Save failed", e);
+            model.addAttribute("trades", tradeService.getAllTrades());
+            model.addAttribute("errorMessage", "Save error: " + e.getMessage());
+            return "trade/add";
+        }
     }
 
     @GetMapping("/trade/update/{id}")

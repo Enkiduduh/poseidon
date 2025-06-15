@@ -3,6 +3,7 @@ package com.app.poseidon.controllers;
 import com.app.poseidon.domain.CurvePoint;
 import com.app.poseidon.services.CurveService;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 public class CurveController {
     // TODO: Inject Curve Point service
@@ -24,8 +26,7 @@ public class CurveController {
 
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Curve Point, add to model
         List<CurvePoint> curvePoints = curveService.getAllCurvePoints();
         model.addAttribute("curvePoints", curvePoints);
@@ -41,12 +42,20 @@ public class CurveController {
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Curve list
         if (result.hasErrors()) {
+            log.error("Validation errors: {}", result.getAllErrors());
             model.addAttribute("curvePoint", curvePoint);
             return "curvePoint/add";
         }
-        curveService.save(curvePoint);
-        model.addAttribute("curvePoints", curveService.getAllCurvePoints());
-        return "curvePoint/add";
+        try {
+            curveService.save(curvePoint);
+            return "redirect:/curvePoint/list";
+        } catch (Exception e) {
+            log.error("Save failed", e);
+            model.addAttribute("curvePoints", curveService.getAllCurvePoints());
+            model.addAttribute("errorMessage", "Save error: " + e.getMessage());
+            return "curvePoint/add";
+        }
+
     }
 
     @GetMapping("/curvePoint/update/{id}")
@@ -59,14 +68,13 @@ public class CurveController {
 
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
-                             BindingResult result, Model model) {
+                            BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         if (result.hasErrors()) {
             model.addAttribute("curvePoint", curvePoint);
             return "curvePoint/update";
         }
-        CurvePoint existing = curveService.findById(id);
-        curveService.update(id, existing);
+        curveService.update(id, curvePoint);
         return "redirect:/curvePoint/list";
     }
 

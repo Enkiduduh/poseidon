@@ -10,7 +10,7 @@ import java.util.List;
 public class RatingService {
     private final RatingRepository ratingRepository;
 
-    public RatingService (RatingRepository ratingRepository) {
+    public RatingService(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
 
@@ -33,6 +33,7 @@ public class RatingService {
         existing.setMoodysRating(data.getMoodysRating());
         existing.setSandPRating(data.getSandPRating());
         existing.setFitchRating(data.getFitchRating());
+        existing.setOrderNumber(data.getOrderNumber());
         ratingRepository.save(existing);
     }
 

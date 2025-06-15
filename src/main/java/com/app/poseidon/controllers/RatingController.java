@@ -2,6 +2,7 @@ package com.app.poseidon.controllers;
 
 import com.app.poseidon.domain.Rating;
 import com.app.poseidon.services.RatingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 public class RatingController {
     // TODO: Inject Rating service
@@ -22,8 +24,7 @@ public class RatingController {
     RatingService ratingService;
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // TODO: find all Rating, add to model
         List<Rating> ratingList = ratingService.getAllRatings();
         model.addAttribute("ratings", ratingList);
@@ -39,14 +40,19 @@ public class RatingController {
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
         if (result.hasErrors()) {
-            List<Rating> ratingList = ratingService.getAllRatings();
-            model.addAttribute("ratings", ratingList);
+            log.error("Validation errors: {}", result.getAllErrors());
+            model.addAttribute("rating", rating);
             return "rating/add";
         }
-        ratingService.save(rating);
-        List<Rating> ratingList = ratingService.getAllRatings();
-        model.addAttribute("ratings", ratingList);
-        return "rating/add";
+        try {
+            ratingService.save(rating);
+            return "redirect:/rating/list";
+        } catch (Exception e) {
+            log.error("Save failed", e);
+            model.addAttribute("errorMessage", "Save error: " + e.getMessage());
+            model.addAttribute("rating", rating);
+            return "rating/add";
+        }
     }
 
     @GetMapping("/rating/update/{id}")
@@ -59,7 +65,7 @@ public class RatingController {
 
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
-                             BindingResult result, Model model) {
+                               BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         if (result.hasErrors()) {
             model.addAttribute("rating", rating);

@@ -2,6 +2,7 @@ package com.app.poseidon.services;
 
 import com.app.poseidon.domain.CurvePoint;
 import com.app.poseidon.repositories.CurvePointRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,22 +24,24 @@ public class CurveService {
                 .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id;" + id));
     }
 
+    @Transactional
     public void save(CurvePoint curvePoint) {
         curvePointRepository.save(curvePoint);
     }
 
+    @Transactional
     public void update(Integer id, CurvePoint data) {
         CurvePoint existing = curvePointRepository.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id:" +id));
+                .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id:" + id));
         existing.setTerm(data.getTerm());
         existing.setValue(data.getValue());
         curvePointRepository.save(existing);
     }
 
-
+    @Transactional
     public void delete(Integer id) {
         CurvePoint existing = curvePointRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id:" +id));
+                .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id:" + id));
         curvePointRepository.delete(existing);
     }
 }

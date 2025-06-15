@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -30,71 +31,67 @@ public class Trade {
     @Column(nullable = false)
     private String type;
 
-    @Digits(integer = 6, fraction = 4, message = "La quantité d'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    @Digits(integer = 6, fraction = 2, message = "La quantité d'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
     @Column(name = "buy_quantity", nullable = false)
     private BigDecimal buyQuantity;
 
-    @Digits(integer = 6, fraction = 4, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(name = "sell_quantity", nullable = false)
-    private BigDecimal sellQuantity;
+    @Digits(integer = 6, fraction = 2, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    @Column(name = "sell_quantity")
+    private BigDecimal sellQuantity = BigDecimal.ZERO;
 
-    @Digits(integer = 6, fraction = 4, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(name ="buy_price", nullable = false)
-    private BigDecimal buyPrice;
+    @Digits(integer = 6, fraction = 2, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    @Column(name = "buy_price")
+    private BigDecimal buyPrice = BigDecimal.ZERO;
 
-    @Digits(integer = 6, fraction = 4, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(name ="sell_price", nullable = false)
-    private BigDecimal  sellPrice;
+    @Digits(integer = 6, fraction = 2, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
+    @Column(name = "sell_price")
+    private BigDecimal sellPrice = BigDecimal.ZERO;
 
-    @Column(name = "trade_date", nullable = false, updatable = false)
-    private LocalDateTime tradeDate;
+    @Column(name = "trade_date", updatable = false)
+    private LocalDateTime tradeDate = LocalDateTime.now();
 
-    private String benchmark;
+    private String benchmark = "";
 
-    @Column(name = "bid_list_date", nullable = false, updatable = false)
-    private LocalDateTime bidListDate;
+    @Column(name = "bid_list_date", updatable = false)
+    private LocalDateTime bidListDate = LocalDateTime.now();
 
-    @NotBlank(message = "Commentary is mandatory.")
-    private String commentary;
-
-    private String security;
+    private String commentary = "";
+    private String security = "";
 
     @Size(max = 10, message = "Status must be under 10 characters.")
-    private String status;
-    private String trader;
-    private String book;
+    private String status = "";
+    private String trader = "";
+    private String book = "";
 
-    @NotBlank(message = "Name is mandatory.")
     @Column(name = "creation_name")
-    private String creationName;
+    private String creationName = "";
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private LocalDateTime creationDate;
+    @Column(name = "creation_date", updatable = false)
+    private LocalDateTime creationDate = LocalDateTime.now();
 
-    @NotBlank(message = "Revision name is mandatory.")
     @Column(name = "revision_name")
-    private String revisionName;
+    private String revisionName = "";
 
-    @Column(name = "revision_date", nullable = false, updatable = false)
-    private LocalDateTime revisionDate;
+    @Column(name = "revision_date", updatable = false)
+    private LocalDateTime revisionDate = LocalDateTime.now();
 
-    @NotBlank(message = "Deal name is mandatory.")
-    @Column(name = "deal_name", nullable = false)
-    private String dealName;
+    @Column(name = "deal_name")
+    private String dealName = "";
 
-    @Column(name = "deal_type", nullable = false)
-    private String dealType;
+    @Column(name = "deal_type")
+    private String dealType = "";
 
-    @Column(name = "source_list_id", nullable = false)
-    private String sourceListId;
+    @Column(name = "source_list_id")
+    private String sourceListId = "";
 
-    private String side;
+    private String side = "";
 
     @PrePersist
     protected void onCreate() {
         this.tradeDate = LocalDateTime.now();
         this.creationDate = LocalDateTime.now();
         this.revisionDate = LocalDateTime.now();
+        this.bidListDate = LocalDateTime.now();
     }
 }
 

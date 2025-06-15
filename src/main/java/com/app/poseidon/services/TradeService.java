@@ -31,8 +31,9 @@ public class TradeService {
     public void update(Integer id, Trade data) {
         Trade existing = TradeService.this.tradeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Trade not found with this id:" + id));
-        existing.setSellPrice(data.getSellPrice());
-        existing.setSellQuantity(data.getSellQuantity());
+        existing.setAccount(data.getAccount());
+        existing.setType(data.getType());
+        existing.setBuyQuantity(data.getBuyQuantity());
         TradeService.this.tradeRepository.save(existing);
     }
 

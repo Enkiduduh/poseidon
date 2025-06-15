@@ -41,11 +41,8 @@ public class BidListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bid list
-        log.info("Attempting to save bid: {}", bid);
-
         if (result.hasErrors()) {
             log.error("Validation errors: {}", result.getAllErrors());
-            System.out.println("Error in BidList...");
             model.addAttribute("bidList", bid);
             return "bidList/add";
         }
