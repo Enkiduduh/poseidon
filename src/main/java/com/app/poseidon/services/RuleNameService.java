@@ -38,6 +38,10 @@ public class RuleNameService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid ruleName id:" + id));
         existing.setName(data.getName());
         existing.setDescription(data.getDescription());
+        existing.setJson(data.getJson());
+        existing.setTemplate(data.getTemplate());
+        existing.setSqlStr(data.getSqlStr());
+        existing.setSqlPart(data.getSqlPart());
         ruleNameRepository.save(existing);
     }
 

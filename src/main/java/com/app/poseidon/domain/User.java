@@ -16,15 +16,23 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
+
     @NotBlank(message = "Username is mandatory")
+    @Column(nullable = false)
     private String username;
+
     @NotBlank(message = "Password is mandatory")
+    @Column(nullable = false)
     private String password;
+
     @NotBlank(message = "FullName is mandatory")
+    @Column(nullable = false)
     private String fullname;
+
     @NotBlank(message = "Role is mandatory")
+    @Column(nullable = false)
     private String role;
 
 

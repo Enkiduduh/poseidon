@@ -2,7 +2,7 @@ CREATE TABLE BidList (
   BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) NOT NULL,
   type VARCHAR(30) NOT NULL,
-  bidQuantity DOUBLE,
+  bidQuantity DOUBLE NOT NULL,
   askQuantity DOUBLE,
   bid DOUBLE ,
   ask DOUBLE,

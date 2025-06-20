@@ -2,7 +2,6 @@ package com.app.poseidon.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -37,54 +36,54 @@ public class Trade {
 
     @Digits(integer = 6, fraction = 2, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
     @Column(name = "sell_quantity")
-    private BigDecimal sellQuantity = BigDecimal.ZERO;
+    private BigDecimal sellQuantity;
 
     @Digits(integer = 6, fraction = 2, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
     @Column(name = "buy_price")
-    private BigDecimal buyPrice = BigDecimal.ZERO;
+    private BigDecimal buyPrice;
 
     @Digits(integer = 6, fraction = 2, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
     @Column(name = "sell_price")
-    private BigDecimal sellPrice = BigDecimal.ZERO;
+    private BigDecimal sellPrice;
 
     @Column(name = "trade_date", updatable = false)
-    private LocalDateTime tradeDate = LocalDateTime.now();
+    private LocalDateTime tradeDate;
 
-    private String benchmark = "";
+    private String benchmark;
 
     @Column(name = "bid_list_date", updatable = false)
-    private LocalDateTime bidListDate = LocalDateTime.now();
+    private LocalDateTime bidListDate;
 
-    private String commentary = "";
-    private String security = "";
+    private String commentary;
+    private String security;
 
     @Size(max = 10, message = "Status must be under 10 characters.")
-    private String status = "";
-    private String trader = "";
-    private String book = "";
+    private String status;
+    private String trader;
+    private String book;
 
     @Column(name = "creation_name")
-    private String creationName = "";
+    private String creationName;
 
     @Column(name = "creation_date", updatable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private LocalDateTime creationDate;
 
     @Column(name = "revision_name")
-    private String revisionName = "";
+    private String revisionName;
 
     @Column(name = "revision_date", updatable = false)
-    private LocalDateTime revisionDate = LocalDateTime.now();
+    private LocalDateTime revisionDate;
 
     @Column(name = "deal_name")
-    private String dealName = "";
+    private String dealName;
 
     @Column(name = "deal_type")
-    private String dealType = "";
+    private String dealType;
 
     @Column(name = "source_list_id")
-    private String sourceListId = "";
+    private String sourceListId;
 
-    private String side = "";
+    private String side;
 
     @PrePersist
     protected void onCreate() {

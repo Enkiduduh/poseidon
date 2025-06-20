@@ -29,7 +29,6 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Id</th>
 					<th>CurvePointId</th>
 					<th>Term</th>
 					<th>Value</th>
@@ -39,7 +38,6 @@
 			<tbody>
 				<tr th:each="curvePoint : ${curvePoints}">
 					<td style="width: 10%" th:text="${curvePoint.id}"></td>
-					<td th:text="${curvePoint.id}"></td>
 					<td th:text="${curvePoint.term}"></td>
 					<td th:text="${curvePoint.value}"></td>
 					<td style="width: 15%" class="text-center">

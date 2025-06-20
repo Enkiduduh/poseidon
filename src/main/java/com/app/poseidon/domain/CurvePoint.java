@@ -24,7 +24,7 @@ public class CurvePoint {
     private Integer id;
 
     @Column(name = "as_of_date", updatable = false)
-    private LocalDateTime asOfDate = LocalDateTime.now();
+    private LocalDateTime asOfDate;
 
     @Digits(integer = 6, fraction = 2)
     @Column(nullable = false)
@@ -35,7 +35,7 @@ public class CurvePoint {
     private BigDecimal value;
 
     @Column(name = "creation_date", updatable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private LocalDateTime creationDate;
 
     @PrePersist
     protected void onCreate() {

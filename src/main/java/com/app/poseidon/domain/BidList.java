@@ -34,12 +34,12 @@ public class BidList {
     private String type;
 
     @Digits(integer = 6, fraction = 2, message = "La quantité d'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(name="bid_quantity", nullable = false)
+    @Column(name = "bid_quantity", nullable = false)
     private BigDecimal bidQuantity;
 
     // Champs optionnels avec valeurs par défaut
     @Digits(integer = 6, fraction = 2, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    @Column(name="ask_quantity")
+    @Column(name = "ask_quantity")
     private BigDecimal askQuantity = BigDecimal.ZERO;
 
     @Digits(integer = 6, fraction = 2, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
@@ -48,40 +48,39 @@ public class BidList {
     @Digits(integer = 6, fraction = 2, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
     private BigDecimal ask = BigDecimal.ZERO;
 
-    private String benchmark = "";
+    private String benchmark;
 
     @Column(name = "bid_list_date", updatable = false)
-    private LocalDateTime bidListDate = LocalDateTime.now();
-
-    private String commentary = "";
-    private String security = "";
+    private LocalDateTime bidListDate;
+    private String commentary;
+    private String security;
 
     @Size(max = 10, message = "Status must be under 10 characters.")
-    private String status = "";
-    private String trader = "";
-    private String book = "";
+    private String status;
+    private String trader;
+    private String book;
 
     @Column(name = "creation_name")
-    private String creationName = "";
+    private String creationName;
 
     @Column(name = "creation_date", updatable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private LocalDateTime creationDate;
 
     @Column(name = "revision_name")
-    private String revisionName = "";
+    private String revisionName;
 
     @Column(name = "revision_date", updatable = false)
-    private LocalDateTime revisionDate = LocalDateTime.now();
+    private LocalDateTime revisionDate;
 
     @Column(name = "deal_name")
-    private String dealName = "";
+    private String dealName;
 
     @Column(name = "deal_type")
-    private String dealType = "";
+    private String dealType;
 
     @Column(name = "source_list_id")
-    private String sourceListId = "";
-    private String side = "";
+    private String sourceListId;
+    private String side;
 
     @PrePersist
     public void onCreate() {
@@ -89,8 +88,10 @@ public class BidList {
         this.creationDate = LocalDateTime.now();
         this.revisionDate = LocalDateTime.now();
     }
+
     // Constructeur protégé
-    protected BidList() {}
+    protected BidList() {
+    }
 
     public BidList(String account, String type, BigDecimal bidQuantity) {
         this.account = account;
