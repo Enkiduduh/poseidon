@@ -1,6 +1,5 @@
 package com.app.poseidon.services;
 
-import com.app.poseidon.domain.BidList;
 import com.app.poseidon.domain.RuleName;
 import com.app.poseidon.repositories.RuleNameRepository;
 import jakarta.transaction.Transactional;
