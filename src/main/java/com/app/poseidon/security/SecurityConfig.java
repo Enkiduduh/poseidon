@@ -50,7 +50,8 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/bidList/list", true)
                         .permitAll()
                 )
-                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/app-logout", "POST"))
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/app-logout", "POST"))
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );

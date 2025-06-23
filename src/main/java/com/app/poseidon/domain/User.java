@@ -2,6 +2,7 @@ package com.app.poseidon.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +26,12 @@ public class User implements UserDetails {
 
     @NotBlank(message = "Password is mandatory")
     @Column(nullable = false)
+    @Pattern(
+            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$",
+            message = "Le mot de passe doit contenir ≥8 caractères," +
+                    " 1 majuscule, 1 minuscule," +
+                    " 1 chiffre et 1 caractère spécial"
+    )
     private String password;
 
     @NotBlank(message = "FullName is mandatory")

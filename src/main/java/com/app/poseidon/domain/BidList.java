@@ -40,13 +40,13 @@ public class BidList {
     // Champs optionnels avec valeurs par défaut
     @Digits(integer = 6, fraction = 2, message = "La quantité de demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
     @Column(name = "ask_quantity")
-    private BigDecimal askQuantity = BigDecimal.ZERO;
+    private BigDecimal askQuantity;
 
     @Digits(integer = 6, fraction = 2, message = "L'enchère doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    private BigDecimal bid = BigDecimal.ZERO;
+    private BigDecimal bid;
 
     @Digits(integer = 6, fraction = 2, message = "La demande doit être un nombre valide avec jusqu'à 6 chiffres au total et 2 chiffres après la virgule.")
-    private BigDecimal ask = BigDecimal.ZERO;
+    private BigDecimal ask;
 
     private String benchmark;
 
