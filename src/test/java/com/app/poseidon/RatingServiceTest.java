@@ -1,7 +1,7 @@
 package com.app.poseidon.services;
 
-import com.app.poseidon.domain.Trade;
-import com.app.poseidon.repositories.TradeRepository;
+import com.app.poseidon.domain.Rating;
+import com.app.poseidon.repositories.RatingRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,29 +16,30 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class TradeServiceTest {
+class RatingServiceTest {
 
     @Mock
-    private TradeRepository repo;
+    private RatingRepository repo;
 
     @InjectMocks
-    private TradeService service;
+    private RatingService service;
 
-    private Trade sample;
+    private Rating sample;
 
     @BeforeEach
     void setUp() {
-        sample = new Trade();
-        sample.setType("type");
-        sample.setAccount("acc");
-        sample.setBuyQuantity(BigDecimal.valueOf(99.99));
+        sample = new Rating();
+        sample.setMoodysRating("Moody");
+        sample.setSandPRating("Sand");
+        sample.setFitchRating("Fitch");
+        sample.setOrderNumber(5);
         sample.setId(1);
     }
 
     @Test
     void getAllBids_shouldReturnAll() {
         when(repo.findAll()).thenReturn(List.of(sample));
-        var all = service.getAllTrades();
+        var all = service.getAllRatings();
         assertThat(all).containsExactly(sample);
         verify(repo).findAll();
     }
@@ -54,7 +55,7 @@ class TradeServiceTest {
         when(repo.findById(2)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> service.findById(2))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Trade not found with this id:2");
+                .hasMessageContaining("Rating not found with this id:2");
     }
 
     @Test
@@ -65,18 +66,16 @@ class TradeServiceTest {
 
     @Test
     void update_success() {
-        Trade updated = new Trade();
-        updated.setType("type2");
-        updated.setAccount("acc2");
-        updated.setBuyQuantity(BigDecimal.valueOf(29.99));
-        updated.setId(1);
+        Rating updated = new Rating();
+        updated.setMoodysRating("MoodyNew");
+        updated.setSandPRating("SandPratingNew");
         when(repo.findById(1)).thenReturn(Optional.of(sample));
 
         service.update(1, updated);
 
-        assertThat(sample.getAccount()).isEqualTo("acc2");
-        assertThat(sample.getType()).isEqualTo("type2");
-        assertThat(sample.getBuyQuantity()).isEqualByComparingTo("29.99");
+        assertThat(sample.getMoodysRating()).isEqualTo("MoodyNew");
+        assertThat(sample.getSandPRating()).isEqualTo("SandPratingNew");
+
         verify(repo).save(sample);
     }
 

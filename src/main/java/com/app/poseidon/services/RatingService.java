@@ -2,6 +2,7 @@ package com.app.poseidon.services;
 
 import com.app.poseidon.domain.Rating;
 import com.app.poseidon.repositories.RatingRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class RatingService {
 
     public Rating findById(Integer id) {
         return ratingRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Rating non found with this id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Rating not found with this id:" + id));
     }
 
     public void save(Rating rating) {
@@ -39,7 +40,7 @@ public class RatingService {
 
     public void delete(Integer id) {
         Rating existing = ratingRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Rating not found with this is:" + id));
+                .orElseThrow(() -> new EntityNotFoundException("Rating not found with this is:" + id));
         ratingRepository.delete(existing);
     }
 }

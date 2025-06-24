@@ -2,6 +2,7 @@ package com.app.poseidon.services;
 
 import com.app.poseidon.domain.RuleName;
 import com.app.poseidon.repositories.RuleNameRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class RuleNameService {
     @Transactional
     public void delete(Integer id) {
         RuleName existing = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid ruleName id:" + id));
+                .orElseThrow(() -> new EntityNotFoundException("Invalid ruleName id:" + id));
         ruleNameRepository.delete(existing);
     }
 }

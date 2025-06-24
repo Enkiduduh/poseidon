@@ -1,7 +1,7 @@
 package com.app.poseidon.services;
 
-import com.app.poseidon.domain.Trade;
-import com.app.poseidon.repositories.TradeRepository;
+import com.app.poseidon.domain.RuleName;
+import com.app.poseidon.repositories.RuleNameRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,29 +16,31 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class TradeServiceTest {
+class RuleNameServiceTest {
 
     @Mock
-    private TradeRepository repo;
+    private RuleNameRepository repo;
 
     @InjectMocks
-    private TradeService service;
+    private RuleNameService service;
 
-    private Trade sample;
+    private RuleName sample;
 
     @BeforeEach
     void setUp() {
-        sample = new Trade();
-        sample.setType("type");
-        sample.setAccount("acc");
-        sample.setBuyQuantity(BigDecimal.valueOf(99.99));
+        sample = new RuleName();
+        sample.setName("name");
+        sample.setDescription("desc");
+        sample.setJson("json");
+        sample.setTemplate("template");
+        sample.setSqlStr("sqlstr");
+        sample.setSqlPart("sqlpart");
         sample.setId(1);
     }
-
     @Test
-    void getAllBids_shouldReturnAll() {
+    void getAllRuleName_shouldReturnAll() {
         when(repo.findAll()).thenReturn(List.of(sample));
-        var all = service.getAllTrades();
+        var all = service.getAllRuleName();
         assertThat(all).containsExactly(sample);
         verify(repo).findAll();
     }
@@ -54,7 +56,7 @@ class TradeServiceTest {
         when(repo.findById(2)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> service.findById(2))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Trade not found with this id:2");
+                .hasMessageContaining("Invalid ruleName Id:2");
     }
 
     @Test
@@ -65,18 +67,23 @@ class TradeServiceTest {
 
     @Test
     void update_success() {
-        Trade updated = new Trade();
-        updated.setType("type2");
-        updated.setAccount("acc2");
-        updated.setBuyQuantity(BigDecimal.valueOf(29.99));
-        updated.setId(1);
+        RuleName updated = new RuleName();
+        updated.setName("nameNew");
+        updated.setDescription("descNew");
+        updated.setJson("jsonNew");
+        updated.setTemplate("templateNew");
+        updated.setSqlStr("sqlstrNew");
+        updated.setSqlPart("sqlpartNew");
         when(repo.findById(1)).thenReturn(Optional.of(sample));
 
         service.update(1, updated);
 
-        assertThat(sample.getAccount()).isEqualTo("acc2");
-        assertThat(sample.getType()).isEqualTo("type2");
-        assertThat(sample.getBuyQuantity()).isEqualByComparingTo("29.99");
+        assertThat(sample.getName()).isEqualTo("nameNew");
+        assertThat(sample.getDescription()).isEqualTo("descNew");
+        assertThat(sample.getJson()).isEqualTo("jsonNew");
+        assertThat(sample.getTemplate()).isEqualTo("templateNew");
+        assertThat(sample.getSqlStr()).isEqualTo("sqlstrNew");
+        assertThat(sample.getSqlPart()).isEqualTo("sqlpartNew");
         verify(repo).save(sample);
     }
 

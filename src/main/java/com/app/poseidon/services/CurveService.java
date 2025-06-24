@@ -2,6 +2,7 @@ package com.app.poseidon.services;
 
 import com.app.poseidon.domain.CurvePoint;
 import com.app.poseidon.repositories.CurvePointRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class CurveService {
 
     public CurvePoint findById(Integer id) {
         return curvePointRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id;" + id));
+                .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id:" + id));
     }
 
     @Transactional
@@ -41,7 +42,7 @@ public class CurveService {
     @Transactional
     public void delete(Integer id) {
         CurvePoint existing = curvePointRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found with this id:" + id));
+                .orElseThrow(() -> new EntityNotFoundException("CurvePoint not found with this id:" + id));
         curvePointRepository.delete(existing);
     }
 }

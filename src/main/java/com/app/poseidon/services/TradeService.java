@@ -2,6 +2,7 @@ package com.app.poseidon.services;
 
 import com.app.poseidon.domain.Trade;
 import com.app.poseidon.repositories.TradeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class TradeService {
 
     public Trade findById(Integer id) {
         return tradeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Trade not found with this id;" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Trade not found with this id:" + id));
     }
 
     public void save(Trade trade) {
@@ -40,7 +41,7 @@ public class TradeService {
 
     public void delete(Integer id) {
         Trade existing = tradeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Trade not found with this id:" + id));
+                .orElseThrow(() -> new EntityNotFoundException("Trade not found with this id:" + id));
         tradeRepository.delete(existing);
     }
 }
