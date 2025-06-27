@@ -5,6 +5,7 @@ import com.app.poseidon.repositories.BidListRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,13 +26,14 @@ public class BidListService {
         return bidListRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid bid Id:" + id));
     }
-
     @Transactional
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public void save(@Valid BidList bid) {
         bidListRepository.save(bid);
     }
 
     @Transactional
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public void update(Integer id, BidList data) {
         BidList bid = bidListRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid id:" + id));
@@ -42,6 +44,7 @@ public class BidListService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(Integer id) {
         BidList bid = bidListRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Bid not found with id:" + id));
