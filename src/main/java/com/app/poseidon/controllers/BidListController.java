@@ -1,9 +1,7 @@
 package com.app.poseidon.controllers;
 
 import com.app.poseidon.domain.BidList;
-import com.app.poseidon.repositories.BidListRepository;
 import com.app.poseidon.services.BidListService;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
