@@ -11,17 +11,46 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
+/**
+ * Représente la configuration de sécurité de l'application.
+ *
+ * <p>
+ * Cette entité contient la gestion de l'authentification d'un user et la chaîne de filtre de sécurité
+ * pour l'accès aux pages de l'application.
+ * </p>
+ *
+ * @author Ilyes Soumar Djouma
+ * @version 1.0
+ * @since 2025-06-27
+ */
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    /**
+     * Instance de UserService
+     */
     private final UserService userService;
+
+    /**
+     * Instance de PasswordEncoder
+     */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Initialisation de l'objet SecurityConfig
+     */
     public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Retourne un objet authProvider qui permet de confirmer l'authentification d'un utilisateur.
+     *
+     * @return l'authProvider de l'utilisateur
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -30,6 +59,24 @@ public class SecurityConfig {
         return authProvider;
     }
 
+    /**
+     * Représente la chaîne de filtre de sécurité qui va gérer toute la sécurité de l'application.
+     * <p>
+     * Cette méthode:
+     * <ol>
+     *      <li>Enregistre le provider d'authentification</li>
+     *      <li>Définit la politique de session</li>
+     *      <li>Détermine la gestion d'accès aux pages de l'app (RBAC)</li>
+     *      <li>Configure le login et son URL de traitement</li>
+     *      <li>Configure le logout</li>
+     * </ol>
+     * </p>
+     *
+     * @param http         la configuration HTTP en cours
+     * @param authProvider le provider Spring Security chargé de valider les credentials
+     * @return la chaîne de filtre de sécurité complétement configurée
+     * @throws Exception en cas d'erreur de configuration du builder
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
         http
@@ -42,7 +89,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login", "/css/**").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers("/user/list").hasRole("ADMIN")
+                        .requestMatchers(
+                                "/bidList/**",
+                                "/trade/**",
+                                "/curvePoint/**",
+                                "/rating/**",
+                                "/ruleName/**"
+                        ).hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/user/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
